@@ -1,0 +1,4 @@
+*
+!Dockerfile
+!shared_catalogue.py
+!shared_catalogue_http.py

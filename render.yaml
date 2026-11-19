@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: vesperkeep-catalogue-relay
+    runtime: docker
+    plan: free
+    healthCheckPath: /health
