@@ -2,3 +2,7 @@
 !Dockerfile
 !shared_catalogue.py
 !shared_catalogue_http.py
+!portal.html
+!portal-logo.png
+!cinzel.ttf
+!Cinzel-OFL.txt

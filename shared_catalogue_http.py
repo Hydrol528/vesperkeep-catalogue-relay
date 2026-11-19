@@ -4,6 +4,8 @@ A scope label groups routing only; it is not proof of VRChat instance membership
 The read capability must be distributed only through the intended instance.
 """
 import json,os,re,threading
+from pathlib import Path
+ROOT=Path(__file__).resolve().parent
 from http.server import BaseHTTPRequestHandler,ThreadingHTTPServer
 from shared_catalogue import SharedCatalogues,ShareDenied
 CAP=re.compile(r'^[A-Za-z0-9_-]{32}$')
@@ -40,6 +42,9 @@ def server(address=('127.0.0.1',0),store=None):
    return value[7:] if value.startswith('Bearer ') else ''
   def do_GET(self):
    try:
+    assets={'/':('portal.html','text/html; charset=utf-8'),'/portal-logo.png':('portal-logo.png','image/png'),'/cinzel.ttf':('cinzel.ttf','font/ttf'),'/Cinzel-OFL.txt':('Cinzel-OFL.txt','text/plain; charset=utf-8')}
+    if self.path in assets:
+     name,kind=assets[self.path];self.send(200,(ROOT/name).read_bytes(),kind);return
     if self.path=='/health':self.send(200,{'service':'vesper-catalogue-relay','ready':True});return
     cap,action=self.route()
     # The scope is resolved from the capability record, not a viewer-supplied identity.

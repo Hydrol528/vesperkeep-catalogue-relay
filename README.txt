@@ -1,8 +1,11 @@
-VESPER KEEP CATALOGUE RELAY — REVIEW CANDIDATE
+VESPER KEEP CATALOGUE RELAY AND ENTRY PAGE
 
-Contains only catalogue metadata/poster relay code. No Jellyfin proxy, movie streaming, local files, account sign-in or credentials.
-Start: python shared_catalogue_http.py (PORT defaults 8080). Deploy one process/one instance only; connections are RAM-only. Restart clears all shares. Provider heartbeat lease:30 seconds; metadata/posters total budget:64 MiB; maximum concurrent HTTP requests:24. HTTPS termination required for public use.
+The public entry page opens the Vesper Keep player already running on the visitor's own computer. A distributable local-player setup is still being prepared. This service does not sign into Jellyfin, proxy Jellyfin, or stream movies.
 
-GET /health is an anonymous service check. /shared/<cap> returns JSON for normal requests or PNG for image/* Accept, matching observed VRChat downloader requests. Read capabilities are bearer access; distribution must occur only in the intended world instance. The service itself does not verify VRChat accounts or instance membership. Provider control remains in the local connector.
+Catalogue shares contain only projected title metadata and poster images. Jellyfin passwords, account access and source paths remain outside this service. Provider controls remain in the local connector. Read capabilities are bearer access and must be shared only in the intended instance; this service cannot independently verify VRChat membership.
 
-This is NOT the finished public player webpage. Do not replace the current site or publish until the provider/menu integration and publication review are complete. No media is included.
+Start: python shared_catalogue_http.py. PORT defaults to8080. Deploy one process and one instance: temporary shares live in memory. Restart clears shares. Provider lease30seconds; total catalogue/poster budget64MiB; concurrent HTTP requests24. HTTPS termination is required for public use.
+
+GET /health checks readiness. GET /shared/<cap> returns JSON or PNG for image/* Accept. The root serves the entry page. No arbitrary filesystem or URL proxy routes are exposed.
+
+Brand artwork is the original Vesper Keep sigil, copied unchanged. Cinzel is copyright2020 The Cinzel Project Authors, licensed under SIL Open Font License1.1; full license in Cinzel-OFL.txt.
